@@ -1,9 +1,10 @@
 <template>
   <div class="home">
+    <div v-for="item in itemlist" v-bind:key="item"> {{ item }}</div>
     <b-container fluid>
       <b-row>
         <b-col>
-          <b-card title="Card Title"
+          <b-card title="Pazham pori"
                   img-src="https://www.keralabackwater.com/blog/wp-content/uploads/2016/06/Banana-fritters.gif"
                   img-alt="Image"
                   img-top
@@ -24,31 +25,23 @@
 <script>
 import Vue from 'vue'
 
-// const getData = () => {
-//   return Vue.http.get('https://sheets.googleapis.com/v4/spreadsheets/1i0V39YqQGsw8977NHII2d4gr1flz650F6_bXU-1dq28/values/items?key=AIzaSyDeJNaIbYFROU3cW8GUr3ZSpcYY1otSyi0')
-//   .then((res) => {
-//     const data = res.json()
-//     console.log(data)
-//   })
-// }
-
 export default {
   name: 'home',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      itemlist: []
     }
   },
-  created: () => {
-    console.log('loading', this.a)
+  created: function () {
     this.getData()
   },
   methods: {
-    getData: () => {
+    getData: function () {
+      let self = this
       return Vue.http.get('https://sheets.googleapis.com/v4/spreadsheets/1i0V39YqQGsw8977NHII2d4gr1flz650F6_bXU-1dq28/values/items?key=AIzaSyDeJNaIbYFROU3cW8GUr3ZSpcYY1otSyi0')
       .then((res) => {
-        const data = res.json()
-        console.log(data)
+        const data = res.data.values
+        self.itemlist = data.map((ele) => ele[1])
       })
     }
   }
