@@ -1,11 +1,10 @@
 <template>
   <div class="home">
-    <div v-for="item in itemlist" v-bind:key="item"> {{ item }}</div>
     <b-container fluid>
       <b-row>
-        <b-col>
-          <b-card title="Pazham pori"
-                  img-src="https://www.keralabackwater.com/blog/wp-content/uploads/2016/06/Banana-fritters.gif"
+        <b-col v-for="item in itemlist" v-bind:key="item.name">
+          <b-card v-bind:title="item.name"
+                  v-bind:img-src="item.url"
                   img-alt="Image"
                   img-top
                   tag="article"
@@ -40,8 +39,12 @@ export default {
       let self = this
       return Vue.http.get('https://sheets.googleapis.com/v4/spreadsheets/1i0V39YqQGsw8977NHII2d4gr1flz650F6_bXU-1dq28/values/items?key=AIzaSyDeJNaIbYFROU3cW8GUr3ZSpcYY1otSyi0')
       .then((res) => {
-        const data = res.data.values
-        self.itemlist = data.map((ele) => ele[1])
+        self.itemlist = res.data.values.map((value) => {
+          return {
+            name: value[0],
+            url: value[1]
+          }
+        })
       })
     }
   }
