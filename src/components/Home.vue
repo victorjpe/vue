@@ -11,9 +11,9 @@
                   style="max-width: 20rem;"
                   class="m-2">
             <p class="card-text">
-              Some quick example text to build on the card title and make up the bulk of the card's content.
+              {{ item.description}}
             </p>
-            <b-button variant="primary">Go somewhere</b-button>
+            <b-button variant="primary">Order Some</b-button>
           </b-card>
         </b-col>
       </b-row>
@@ -42,7 +42,8 @@ export default {
         self.itemlist = res.data.values.map((value) => {
           return {
             name: value[0],
-            url: value[1]
+            url: value[1],
+            description: value[2]
           }
         })
       })

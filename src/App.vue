@@ -1,6 +1,6 @@
 <template>  
   <div id="app">
-    <b-navbar toggleable="md" type="dark" variant="dark">
+    <b-navbar toggleable="md" type="dark" variant="dark" v-if="validSession">
 
       <b-nav-toggle target="nav_collapse"></b-nav-toggle>
 
@@ -40,13 +40,24 @@
 
       </b-collapse>
     </b-navbar>
-    <router-view></router-view>
+    <router-view v-on:increment="updateSession"></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data () {
+    return {
+      validSession: false
+    }
+  },
+  methods: {
+    updateSession: function () {
+      this.validSession = true
+      this.$router.push('/home')
+    }
+  }
 }
 </script>
 

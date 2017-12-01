@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import Order from '@/components/Order'
+import Login from '@/components/Login'
 
 Vue.use(Router)
 
@@ -9,7 +10,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/login'
     },
     {
       path: '/home',
@@ -20,6 +21,11 @@ export default new Router({
       path: '/order',
       name: 'order',
       component: Order
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     }
   ]
 })
